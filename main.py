@@ -3,10 +3,12 @@ def main():
 
     with open(file_path) as f:
         text = f.read()
-        words = get_word_count(text)
-        char_dict = get_char_dict(text)
 
-    print(chars_dict_to_sorted_list(char_dict))
+    num_words = get_word_count(text)
+    char_dict = get_char_dict(text)
+    char_dict_list = chars_dict_to_sorted_list(char_dict)
+
+    print_report(file_path, num_words, char_dict_list)
 
 
 def get_char_dict(text):
@@ -31,15 +33,17 @@ def chars_dict_to_sorted_list(num_chars_dict):
     sorted_list.sort(reverse=True, key=sort_on)
     return sorted_list
 
-def print_report(file_path, words, characters):
+def print_report(file_path, words, char_dict_list):
     
     print(f"--- Begin report for {file_path} ---")
     print(f"{words} found in document")
     print("")
 
-    for c in characters:
-        if c.isalpha():
-            print(f"Character '{c}' was found {characters[c]} times")
+    for d in char_dict_list:
+        char = d["char"]
+        count = d["count"]
+        if char.isalpha():
+            print(f"Character '{char}' was found {count} times")
 
     print("--- End report ---")
     
